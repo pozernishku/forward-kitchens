@@ -1,2 +1,2 @@
 # forward-kitchens
-Reverse engineering take home assignment from Forward Kitchens
+Reverse engineering home task from Forward Kitchens
