@@ -9,6 +9,7 @@ packages = [{include = "forward_kitchens"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 scrapy = "^2.7.1"
+python-dotenv = "^0.21.0"
 
 
 [tool.poetry.group.test.dependencies]
