@@ -101,3 +101,26 @@ class ScrapyCrawlDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+
+class ProxyMiddleware:
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings)
+
+    def __init__(self, settings):
+        load_dotenv()
+        self.user = os.environ["SMARTPROXY_USER"]
+        self.password = os.environ["SMARTPROXY_PASSWORD"]
+        proxy_country = settings.get("SMARTPROXY_COUNTRY")
+        assert proxy_country is not None, "Make sure that the proxy_country is not None"
+        proxy_details = settings.get("PROXY_DETAILS")
+        self.endpoint, self.port = proxy_details.get(proxy_country, ("", ""))
+        assert self.endpoint and self.port, "KeyError, update the PROXY_DETAILS setting"
+
+    def process_request(self, request, spider):
+        user_credentials = f"{self.user}:{self.password}"
+        basic_auth = "Basic " + base64.b64encode(user_credentials.encode()).decode()
+        host = f"http://{self.endpoint}:{self.port}"
+        request.meta["proxy"] = host
+        request.headers["Proxy-Authorization"] = basic_auth
