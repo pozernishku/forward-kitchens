@@ -3,10 +3,15 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import base64
+import os
+
+from dotenv import load_dotenv
 from scrapy import signals
 
+
 # useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
+# from itemadapter import is_item, ItemAdapter
 
 
 class ScrapyCrawlSpiderMiddleware:
