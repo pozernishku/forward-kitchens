@@ -22,7 +22,7 @@ class GrubhubSpiderSpider(Spider):
         yield Request(
             url="https://api-gtm.grubhub.com/auth",
             method="POST",
-            # callback=self.parse,
+            callback=self.parse_access_token,
             # errback=self.handle_errback,
             headers={
                 "Content-Type": "application/json;charset=UTF-8",
@@ -39,6 +39,9 @@ class GrubhubSpiderSpider(Spider):
             ),
             # dont_filter=True,
         )
+
+    def parse_access_token(self, response: Response) -> Iterator[Request]:
+        ...
 
     def parse(self, response, **kwargs):
         pass
