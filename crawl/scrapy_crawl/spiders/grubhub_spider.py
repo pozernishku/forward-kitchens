@@ -1,7 +1,8 @@
 import json
 from typing import Iterator
 
-import scrapy
+from scrapy import Spider
+from scrapy.http import Request, Response
 
 import project_settings as s
 from crawl.starter import start_scrapy_crawl
@@ -12,13 +13,13 @@ DEVICE_ID = 1844483276
 SCOPE = "anonymous"
 
 
-class GrubhubSpiderSpider(scrapy.Spider):
+class GrubhubSpiderSpider(Spider):
     name = "grubhub_spider"
     allowed_domains = ["www.grubhub.com", "grubhub.com"]
     custom_settings = {"SMARTPROXY_COUNTRY": "us"}
 
-    def start_requests(self) -> Iterator[scrapy.Request]:
-        yield scrapy.Request(
+    def start_requests(self) -> Iterator[Request]:
+        yield Request(
             url="https://api-gtm.grubhub.com/auth",
             method="POST",
             # callback=self.parse,
