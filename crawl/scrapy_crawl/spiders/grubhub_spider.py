@@ -3,6 +3,11 @@ import scrapy
 import project_settings as s
 from crawl.starter import start_scrapy_crawl
 
+BRAND = "GRUBHUB"
+CLIENT_ID = "beta_UmWlpstzQSFmocLy3h1UieYcVST"
+DEVICE_ID = 1844483276
+SCOPE = "anonymous"
+
 
 class GrubhubSpiderSpider(scrapy.Spider):
     name = "grubhub_spider"
