@@ -32,7 +32,6 @@ def start_scrapy_crawl(
     spider_names = spider_names if isinstance(spider_names, list) else [spider_names]
     # TODO: Log to every single crawl job
     crawl_csv = get_crawling_output_filename(spider_names[0], output_folder)
-    # register_all_loggers(crawl_csv)
 
     scrapy_settings = get_project_settings()
     scrapy_settings.update(
@@ -44,8 +43,4 @@ def start_scrapy_crawl(
         process.crawl(spider_name, max_requests=max_requests)
     process.start()
 
-    # if len(spider_names) > 1:
-    #     remove_duplicate_rows_in_csv(crawl_csv)
-    #     split_quotes_and_prices_data(pathlib.Path(crawl_csv))
-    # add_general_info_to_logfile(crawl_csv)
     return crawl_csv
