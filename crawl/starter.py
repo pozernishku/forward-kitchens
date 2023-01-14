@@ -1,9 +1,10 @@
 import logging
-import pathlib
 from datetime import datetime
+from pathlib import Path, PurePosixPath
 from typing import List
 
 from scrapy.crawler import CrawlerProcess
+from scrapy.settings.default_settings import LOG_DATEFORMAT, LOG_FORMAT
 from scrapy.utils.log import configure_logging
 from scrapy.utils.project import get_project_settings
 
@@ -21,6 +22,33 @@ def get_crawling_output_filename(spider_name: str, output_folder: str) -> str:
         output_folder, market_name, spider_name, filename
     )
     return str(crawl_result_path)
+
+
+def register_compact_log_to_file(logfilename: str) -> None:
+    h = logging.FileHandler(logfilename)
+    # h.setLevel(logging.INFO)
+    # suppress = [
+    #     "scrapy.extensions.logstats",
+    #     "scrapy.middleware",
+    #     "scrapy.extensions.telnet",
+    #     "scrapy.spidermiddlewares.httperror",
+    # ]
+    # h.addFilter(lambda record: False if record.name in suppress else True)
+    finish_logger_registration(h)
+
+
+def finish_logger_registration(handler: logging.FileHandler) -> None:
+    formatter = logging.Formatter(LOG_FORMAT, LOG_DATEFORMAT)
+    handler.setFormatter(formatter)
+    root_logger = logging.getLogger()
+    root_logger.addHandler(handler)
+
+
+def register_logger(filepath: str) -> None:
+    filepath_logger = Path(s.ROOT_DIR).joinpath(Path(filepath).with_suffix(".log"))
+    filepath_logger.parent.mkdir(parents=True, exist_ok=True)
+    # TODO: Check if it's possible to set up logging to a file using Scrapy framework
+    register_compact_log_to_file(str(filepath_logger))
 
 
 def start_scrapy_crawl(
