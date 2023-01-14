@@ -18,7 +18,7 @@ def get_crawling_output_filename(spider_name: str, output_folder: str) -> str:
     timestamp = datetime.today().strftime("%Y%m%d_%H%M")
     filename = f"{timestamp}__{spider_name}.csv"
     market_name = s.SOURCE_TO_MARKET_MAPPING[spider_name]
-    crawl_result_path = pathlib.PurePosixPath(s.ROOT_DIR).joinpath(
+    crawl_result_path = PurePosixPath(s.ROOT_DIR).joinpath(
         output_folder, market_name, spider_name, filename
     )
     return str(crawl_result_path)
@@ -61,9 +61,7 @@ def start_scrapy_crawl(
     # TODO: Log to every single crawl job
     crawl_csv = get_crawling_output_filename(spider_names[0], output_folder)
     scrapy_settings = get_project_settings()
-    scrapy_settings.update(
-        {"FEEDS": {pathlib.Path(crawl_csv).as_uri(): {"format": "csv"}}}
-    )
+    scrapy_settings.update({"FEEDS": {Path(crawl_csv).as_uri(): {"format": "csv"}}})
     process = CrawlerProcess(settings=scrapy_settings)
     for spider_name in spider_names:
         logger.info(f"Starting Scrapy crawl: '{spider_name}' ...")
