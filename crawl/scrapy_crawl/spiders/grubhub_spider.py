@@ -3,6 +3,7 @@ from typing import Iterator
 
 from scrapy import Spider
 from scrapy.http import Request, Response
+from scrapy.utils.project import get_project_settings
 
 import project_settings as s
 from crawl.starter import start_scrapy_crawl
@@ -16,7 +17,19 @@ SCOPE = "anonymous"
 class GrubhubSpiderSpider(Spider):
     name = "grubhub_spider"
     allowed_domains = ["www.grubhub.com", "grubhub.com"]
-    custom_settings = {"SMARTPROXY_COUNTRY": "us"}
+
+    settings = get_project_settings()
+    download_handlers = dict(settings.get("DOWNLOAD_HANDLERS"))
+    download_handlers.update(
+        {
+            "http": "scrapy_crawler.handlers.RotatingProxiesDownloadHandler",
+            "https": "scrapy_crawler.handlers.RotatingProxiesDownloadHandler",
+        }
+    )
+    custom_settings = {
+        "SMARTPROXY_COUNTRY": "us",
+        "DOWNLOAD_HANDLERS": download_handlers,
+    }
 
     def start_requests(self) -> Iterator[Request]:
         yield Request(
