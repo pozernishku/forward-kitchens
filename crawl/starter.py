@@ -60,6 +60,7 @@ def start_scrapy_crawl(
     spider_names = spider_names if isinstance(spider_names, list) else [spider_names]
     # TODO: Log to every single crawl job
     crawl_csv = get_crawling_output_filename(spider_names[0], output_folder)
+    register_logger(crawl_csv)
     scrapy_settings = get_project_settings()
     scrapy_settings.update({"FEEDS": {Path(crawl_csv).as_uri(): {"format": "csv"}}})
     process = CrawlerProcess(settings=scrapy_settings)
