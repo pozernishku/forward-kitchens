@@ -72,7 +72,7 @@ class GrubhubSpiderSpider(Spider):
                 f"&hideUnavailableMenuItems=true"
                 f"&hideMenuItems=false"
             ),
-            callback=self.parse,
+            callback=self.parse_restaurant,
             # errback=self.handle_errback,
             meta={"dont_merge_cookies": True},
             headers={
@@ -81,11 +81,14 @@ class GrubhubSpiderSpider(Spider):
             },
             cb_kwargs={
                 "access_token": access_token,
+                "restaurant_id": restaurant_id,
             },
         )
         yield next_request
 
-    def parse(self, response, **kwargs):
+    def parse_restaurant(
+        self, response: Response, access_token: str, restaurant_id: str
+    ) -> Iterator[Request]:
         restaurant_dict = json.loads(response.body)
         path = "restaurant.name"
         print(f"Restaurant Name: {jmespath.search(path, restaurant_dict)}")
@@ -99,7 +102,36 @@ class GrubhubSpiderSpider(Spider):
         print(f"Restaurant Stars: {jmespath.search(path, restaurant_dict)}")
         path = "restaurant.faceted_rating_data.review_data.valid_count"
         print(f"Restaurant Review Count: {jmespath.search(path, restaurant_dict)}")
-        pass
+
+        path = "restaurant.menu_category_list[].menu_item_list[].id"
+        # TODO: Add verification for menu_item_list_ids (if empty)
+        menu_item_list_ids = jmespath.search(path, restaurant_dict)
+        # Slice is used for testing. See below
+        for menu_item_list_id in menu_item_list_ids[:2]:
+            next_request = Request(
+                url=(
+                    f"https://api-gtm.grubhub.com/restaurants/{restaurant_id}"
+                    f"/menu_items/{menu_item_list_id}"
+                    f"?hideUnavailableMenuItems=true"
+                    f"&orderType=standard"
+                    f"&version={VERSION}"
+                ),
+                callback=self.parse,
+                # errback=self.handle_errback,
+                meta={"dont_merge_cookies": True},
+                headers={
+                    "Cache-Control": "no-cache",
+                    "Authorization": f"Bearer {access_token}",
+                },
+                cb_kwargs={
+                    "access_token": access_token,
+                    "restaurant_dict": restaurant_dict,
+                },
+            )
+            yield next_request
+
+    def parse(self, response: Response, **kwargs):
+        ...
 
 
 if __name__ == "__main__":
