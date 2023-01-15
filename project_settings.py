@@ -8,5 +8,3 @@ SOURCE_TO_MARKET_MAPPING = {
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 OUTPUT_FOLDER = "crawl_output"
-
-MAX_REQUESTS = 50000

@@ -111,6 +111,5 @@ if __name__ == "__main__":
     start_scrapy_crawl(
         spider_names=spider_names,
         restaurant_url="https://www.grubhub.com/restaurant/mezeh-optimist-hall-340-e-16th-st-unit-r201-charlotte/2809951",
-        max_requests=1,
         output_folder=s.OUTPUT_FOLDER,
     )
