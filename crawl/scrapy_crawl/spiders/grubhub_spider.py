@@ -86,6 +86,19 @@ class GrubhubSpiderSpider(Spider):
         yield next_request
 
     def parse(self, response, **kwargs):
+        restaurant_dict = json.loads(response.body)
+        path = "restaurant.name"
+        print(f"Restaurant Name: {jmespath.search(path, restaurant_dict)}")
+        path = "restaurant.address.street_address"
+        print(f"Restaurant Address Line 1: {jmespath.search(path, restaurant_dict)}")
+        path = "restaurant.address.locality"
+        print(f"Restaurant City: {jmespath.search(path, restaurant_dict)}")
+        path = "restaurant.address.region"
+        print(f"Restaurant State: {jmespath.search(path, restaurant_dict)}")
+        path = "restaurant.rating_bayesian_half_point.rating_value"
+        print(f"Restaurant Stars: {jmespath.search(path, restaurant_dict)}")
+        path = "restaurant.faceted_rating_data.review_data.valid_count"
+        print(f"Restaurant Review Count: {jmespath.search(path, restaurant_dict)}")
         pass
 
 
