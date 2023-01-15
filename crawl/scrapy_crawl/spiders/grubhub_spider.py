@@ -30,7 +30,10 @@ class GrubhubSpiderSpider(Spider):
         "SMARTPROXY_COUNTRY": "us",
         "DOWNLOAD_HANDLERS": download_handlers,
     }
-    restaurant_url = ""  # scrapy crawl grubhub_spider -a restaurant_url="URL"
+
+    # Usage: scrapy crawl grubhub_spider -a restaurant_url="URL"
+    # or add restaurant_url="URL" into process.crawl(), see start_scrapy_crawl()
+    restaurant_url = ""
 
     def start_requests(self) -> Iterator[Request]:
         yield Request(
