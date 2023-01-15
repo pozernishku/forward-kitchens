@@ -53,6 +53,7 @@ def register_logger(filepath: str) -> None:
 
 def start_scrapy_crawl(
     spider_names: List[str],
+    restaurant_url: str = "",
     max_requests: int = s.MAX_REQUESTS,
     output_folder: str = s.OUTPUT_FOLDER,
 ) -> str:
@@ -66,6 +67,8 @@ def start_scrapy_crawl(
     process = CrawlerProcess(settings=scrapy_settings)
     for spider_name in spider_names:
         logger.info(f"Starting Scrapy crawl: '{spider_name}' ...")
-        process.crawl(spider_name, max_requests=max_requests)
+        process.crawl(
+            spider_name, max_requests=max_requests, restaurant_url=restaurant_url
+        )
     process.start()
     return crawl_csv
