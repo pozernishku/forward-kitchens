@@ -22,8 +22,8 @@ class GrubhubSpiderSpider(Spider):
     download_handlers = dict(settings.get("DOWNLOAD_HANDLERS"))
     download_handlers.update(
         {
-            "http": "scrapy_crawler.handlers.RotatingProxiesDownloadHandler",
-            "https": "scrapy_crawler.handlers.RotatingProxiesDownloadHandler",
+            "http": "scrapy_crawl.handlers.RotatingProxiesDownloadHandler",
+            "https": "scrapy_crawl.handlers.RotatingProxiesDownloadHandler",
         }
     )
     custom_settings = {
