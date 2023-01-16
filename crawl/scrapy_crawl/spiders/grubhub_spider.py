@@ -45,7 +45,6 @@ class GrubhubSpiderSpider(Spider):
                 "Content-Type": "application/json;charset=UTF-8",
                 "Authorization": "Bearer",
             },
-            # cb_kwargs=dict(params=params),
             body=json.dumps(
                 {
                     "brand": BRAND,
@@ -123,10 +122,7 @@ class GrubhubSpiderSpider(Spider):
                     "Cache-Control": "no-cache",
                     "Authorization": f"Bearer {access_token}",
                 },
-                cb_kwargs={
-                    "access_token": access_token,
-                    "restaurant_dict": restaurant_dict,
-                },
+                cb_kwargs={"restaurant_dict": restaurant_dict},
             )
             yield next_request
 
