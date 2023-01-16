@@ -102,6 +102,16 @@ class GrubhubSpiderSpider(Spider):
         path = "restaurant.faceted_rating_data.review_data.valid_count"
         print(f"Restaurant Review Count: {jmespath.search(path, restaurant_dict)}")
 
+        path = (
+            '{"Category Name": menu_category_name, '
+            '"Item Name": name, '
+            '"Item Description": description, '
+            '"Item Price": minimum_price_variation.amount}'
+        )
+        path = f"restaurant.menu_category_list[].menu_item_list[].{path}"
+        menu_items = jmespath.search(path, restaurant_dict)
+        yield from menu_items
+
         path = "restaurant.menu_category_list[].menu_item_list[].id"
         # TODO: Add verification for menu_item_list_ids (if empty or None)
         menu_item_list_ids = jmespath.search(path, restaurant_dict)
