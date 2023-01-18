@@ -132,7 +132,6 @@ class GrubhubSpiderSpider(Spider):
                     "Cache-Control": "no-cache",
                     "Authorization": f"Bearer {access_token}",
                 },
-                cb_kwargs={"restaurant_dict": restaurant_dict},
             )
             yield next_request
 
