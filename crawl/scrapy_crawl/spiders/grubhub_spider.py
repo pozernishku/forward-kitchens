@@ -137,7 +137,36 @@ class GrubhubSpiderSpider(Spider):
             yield next_request
 
     def parse(self, response: Response, **kwargs):
-        ...
+        modifiers_dict = json.loads(response.body)
+        path = (
+            '{"Modifier Group Name": name, '
+            '"Modifier Min": min_choice_options, '
+            '"Modifier Max": max_choice_options, '
+            '"Option Name": choice_option_list[].description, '
+            '"Option Price": choice_option_list[].price.amount}'
+        )
+        path = f"choice_category_list[].{path}"
+        modifier_items = jmespath.search(path, modifiers_dict)
+
+        # Second section mapping
+        yield {
+            "Category Name": "Modifier Group Name",
+            "Item Name": "Modifier Min",
+            "Item Description": "Modifier Max",
+            "Item Price": "Option Name",
+            "": "Option Price",
+        }
+
+        for item in modifier_items:
+            for name, price in zip(item["Option Name"], item["Option Price"]):
+                # Second section data
+                yield {
+                    "Category Name": item["Modifier Group Name"],
+                    "Item Name": item["Modifier Min"],
+                    "Item Description": item["Modifier Max"],
+                    "Item Price": name,
+                    "": price,
+                }
 
 
 if __name__ == "__main__":
