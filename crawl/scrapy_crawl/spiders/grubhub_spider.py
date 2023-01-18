@@ -106,7 +106,8 @@ class GrubhubSpiderSpider(Spider):
             '{"Category Name": menu_category_name, '
             '"Item Name": name, '
             '"Item Description": description, '
-            '"Item Price": minimum_price_variation.amount}'
+            '"Item Price": minimum_price_variation.amount, '
+            '"": ``}'  # Empty column to store
         )
         path = f"restaurant.menu_category_list[].menu_item_list[].{path}"
         menu_items = jmespath.search(path, restaurant_dict)
