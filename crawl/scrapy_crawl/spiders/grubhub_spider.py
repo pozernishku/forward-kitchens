@@ -34,6 +34,7 @@ class GrubhubSpiderSpider(Spider):
     # Usage: scrapy crawl grubhub_spider -a restaurant_url="URL"
     # or add restaurant_url="URL" into process.crawl(), see start_scrapy_crawl()
     restaurant_url = ""
+    second_section_header = True
 
     def start_requests(self) -> Iterator[Request]:
         yield Request(
@@ -148,14 +149,16 @@ class GrubhubSpiderSpider(Spider):
         path = f"choice_category_list[].{path}"
         modifier_items = jmespath.search(path, modifiers_dict)
 
-        # Second section mapping
-        yield {
-            "Category Name": "Modifier Group Name",
-            "Item Name": "Modifier Min",
-            "Item Description": "Modifier Max",
-            "Item Price": "Option Name",
-            "": "Option Price",
-        }
+        if self.second_section_header:
+            self.second_section_header = False
+            # Second section mapping
+            yield {
+                "Category Name": "Modifier Group Name",
+                "Item Name": "Modifier Min",
+                "Item Description": "Modifier Max",
+                "Item Price": "Option Name",
+                "": "Option Price",
+            }
 
         for item in modifier_items:
             for name, price in zip(item["Option Name"], item["Option Price"]):
