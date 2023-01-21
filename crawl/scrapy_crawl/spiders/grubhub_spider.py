@@ -149,6 +149,7 @@ class GrubhubSpiderSpider(Spider):
         path = f"choice_category_list[].{path}"
         modifier_items = jmespath.search(path, modifiers_dict)
         default_price = jmespath.search("price.amount", modifiers_dict)
+        default_modifier_max = 1  # Fallback default value as it missing sometimes
 
         if self.second_section_header:
             self.second_section_header = False
@@ -167,7 +168,7 @@ class GrubhubSpiderSpider(Spider):
                 yield {
                     "Category Name": item["Modifier Group Name"],
                     "Item Name": item["Modifier Min"],
-                    "Item Description": item["Modifier Max"],
+                    "Item Description": item["Modifier Max"] or default_modifier_max,
                     "Item Price": name,
                     "": price or default_price,
                 }
