@@ -148,6 +148,7 @@ class GrubhubSpiderSpider(Spider):
         )
         path = f"choice_category_list[].{path}"
         modifier_items = jmespath.search(path, modifiers_dict)
+        default_price = jmespath.search("price.amount", modifiers_dict)
 
         if self.second_section_header:
             self.second_section_header = False
@@ -168,7 +169,7 @@ class GrubhubSpiderSpider(Spider):
                     "Item Name": item["Modifier Min"],
                     "Item Description": item["Modifier Max"],
                     "Item Price": name,
-                    "": price,
+                    "": price or default_price,
                 }
 
 
