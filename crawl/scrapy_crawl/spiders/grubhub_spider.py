@@ -117,8 +117,7 @@ class GrubhubSpiderSpider(Spider):
         path = "restaurant.menu_category_list[].menu_item_list[].id"
         # TODO: Add verification for menu_item_list_ids (if empty or None)
         menu_item_list_ids = jmespath.search(path, restaurant_dict)
-        # Slice is used for testing. See below
-        for menu_item_list_id in menu_item_list_ids[:2]:
+        for menu_item_list_id in menu_item_list_ids:
             next_request = Request(
                 url=(
                     f"https://api-gtm.grubhub.com/restaurants/{restaurant_id}"
