@@ -1,3 +1,6 @@
+# Usage: scrapy crawl grubhub_spider --nolog -a restaurant_url="URL" -O output.csv
+# or add restaurant_url="URL" into process.crawl(), see start_scrapy_crawl()
+
 import json
 import re
 from typing import Iterator
@@ -31,8 +34,6 @@ class GrubhubSpiderSpider(Spider):
         "DOWNLOAD_HANDLERS": download_handlers,
     }
 
-    # Usage: scrapy crawl grubhub_spider -a restaurant_url="URL"
-    # or add restaurant_url="URL" into process.crawl(), see start_scrapy_crawl()
     restaurant_url = ""
     second_section_header = True
 
