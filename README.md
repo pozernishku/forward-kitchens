@@ -15,4 +15,5 @@ from Forward Kitchens
 1. Move to the ```crawl``` directory of the project ```cd crawl```
 2. Run ```scrapy crawl grubhub_spider --nolog -a restaurant_url="URL" -O ../crawl_output/us/grubhub_spider/grubhub_spider__output.csv```
    - Use any [restaurant URL](https://www.grubhub.com/restaurant/mezeh-optimist-hall-340-e-16th-st-unit-r201-charlotte/2809951) in ```-a restaurant_url="URL"```
+   - Optionally, add ```--logfile ../crawl_output/us/grubhub_spider/grubhub_spider__output.log```
 3. Check the output in ```grubhub_spider__output.csv```
