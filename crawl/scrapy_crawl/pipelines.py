@@ -4,8 +4,12 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
+import re
+
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+
+compiled_newline_pattern = re.compile(r"[\r\n]+")
 
 
 class ScrapyCrawlPipeline:
@@ -16,8 +20,9 @@ class ScrapyCrawlPipeline:
         if isinstance(adapter.get("Item Name"), str):
             adapter["Item Name"] = adapter["Item Name"].strip()
         if isinstance(adapter.get("Item Description"), str):
-            # TODO: Get rid of multi-lines
-            adapter["Item Description"] = adapter["Item Description"].strip()
+            item_desc = adapter["Item Description"]
+            item_desc = item_desc.strip()
+            adapter["Item Description"] = compiled_newline_pattern.sub(" ", item_desc)
         if isinstance(adapter.get("Item Price"), int):
             adapter["Item Price"] = adapter["Item Price"] / 100
         elif isinstance(adapter.get("Item Price"), str):
