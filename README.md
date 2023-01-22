@@ -24,3 +24,5 @@ from Forward Kitchens
 I used asynchronous [Scrapy framework](https://docs.scrapy.org/en/latest/) to complete
 this task. Scrapy has a good [architecture](https://docs.scrapy.org/en/latest/topics/architecture.html)
 and contains a lot of features designed for crawling.
+
+For reconnaissance, I used [mitmproxy](https://mitmproxy.org/) and [Burp Suite](https://portswigger.net/burp).
