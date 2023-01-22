@@ -23,6 +23,8 @@ from Forward Kitchens
 # Details
 I used asynchronous [Scrapy framework](https://docs.scrapy.org/en/latest/) to complete
 this task. Scrapy has a good [architecture](https://docs.scrapy.org/en/latest/topics/architecture.html)
-and contains a lot of features designed for crawling.
+and contains a lot of features designed for crawling, which is why I chose it. Scrapy is
+based on [twisted](https://twisted.org/) but modern [asyncio](https://docs.scrapy.org/en/latest/topics/asyncio.html)
+is also supported.
 
 For reconnaissance, I used [mitmproxy](https://mitmproxy.org/) and [Burp Suite](https://portswigger.net/burp).
