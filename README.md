@@ -27,4 +27,7 @@ and contains a lot of features designed for crawling, which is why I chose it. S
 based on [twisted](https://twisted.org/) but modern [asyncio](https://docs.scrapy.org/en/latest/topics/asyncio.html)
 is also supported.
 
+[Paid proxies](https://smartproxy.com/) (US) were used to bypass
+[grubhub.com](https://grubhub.com/) from Ukraine.
+
 For reconnaissance, I used [mitmproxy](https://mitmproxy.org/) and [Burp Suite](https://portswigger.net/burp).
