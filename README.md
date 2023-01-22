@@ -17,3 +17,10 @@ from Forward Kitchens
    - Use any [restaurant URL](https://www.grubhub.com/restaurant/mezeh-optimist-hall-340-e-16th-st-unit-r201-charlotte/2809951) in ```-a restaurant_url="URL"```
    - Optionally, add ```--logfile ../crawl_output/us/grubhub_spider/grubhub_spider__output.log```
 3. Check the output in ```grubhub_spider__output.csv```
+4. Alternatively, it's possible to start a crawl from a python file, see `forward-kitchens/crawl/scrapy_crawl/spiders/grubhub_spider.py`
+   - Check this section `if __name__ == "__main__":`
+
+# Details
+I used asynchronous [Scrapy framework](https://docs.scrapy.org/en/latest/) to complete
+this task. Scrapy has a good [architecture](https://docs.scrapy.org/en/latest/topics/architecture.html)
+and contains a lot of features designed for crawling.
