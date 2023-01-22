@@ -38,3 +38,7 @@ IDs) from a file or other source. To increase requests concurrency use
 `CONCURRENT_REQUESTS` (16 by default) setting or related. Also, the [AutoThrottle extension](https://docs.scrapy.org/en/latest/topics/autothrottle.html)
 can help with crawling speed. As an option, it is possible to spread the load and make a
 [distributed crawl](https://docs.scrapy.org/en/latest/topics/practices.html#distributed-crawls).
+
+It's always good to have a scheduled test job (runs daily at 8:00 am, for example) which
+will run spiders to test them. Logs will be saved and in case of failures the message
+will be sent to Slack or somewhere else. Also, Kibana might be an option here.
