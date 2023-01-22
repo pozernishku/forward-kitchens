@@ -5,7 +5,7 @@ from Forward Kitchens
 # Install
 1. Run `git clone https://github.com/pozernishku/forward-kitchens.git`
 2. Go to project directory `cd forward-kitchens`
-3. Create an environment file `.env` with the following secrets (ask [me](https://t.me/zackushka))
+3. Create an environment file `.env` with the following secrets (ask [me](https://t.me/zackushka) if you don't have them)
    - `SMARTPROXY_USER=...`
    - `SMARTPROXY_PASSWORD=...`
 4. Activate environment `poetry shell` (requires [poetry to be installed](https://python-poetry.org/docs/#installation))
