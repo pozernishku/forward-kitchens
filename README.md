@@ -5,11 +5,11 @@ from Forward Kitchens
 # Install
 1. Run ```git clone https://github.com/pozernishku/forward-kitchens.git```
 2. Move into project directory ```cd forward-kitchens```
-3. To install project dependencies, run ```poetry install``` (this command requires [poetry to be installed](https://python-poetry.org/docs/#installation))
-4. Create an environment file ```.env``` with the following secrets (ask [me](https://t.me/zackushka))
+3. Create an environment file ```.env``` with the following secrets (ask [me](https://t.me/zackushka))
    - ```SMARTPROXY_USER=...```
    - ```SMARTPROXY_PASSWORD=...```
-5. Activate environment ```poetry shell```
+4. Activate environment ```poetry shell``` (requires [poetry to be installed](https://python-poetry.org/docs/#installation))
+5. To install project dependencies, run ```poetry install --no-root```
 
 # Run
 1. Move to the ```crawl``` directory of the project ```cd crawl```
