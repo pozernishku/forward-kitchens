@@ -31,3 +31,10 @@ is also supported.
 [grubhub.com](https://grubhub.com/) from Ukraine.
 
 For reconnaissance, I used [mitmproxy](https://mitmproxy.org/) and [Burp Suite](https://portswigger.net/burp).
+
+With Scrapy, it's easy to redesign the project for scalability (to crawl hundreds of
+URLs). It is possible to rewrite the `start_requests()` to read in URLs (or restaurant
+IDs) from a file or other source. To increase requests concurrency use
+`CONCURRENT_REQUESTS` (16 by default) setting or related. Also, the [AutoThrottle extension](https://docs.scrapy.org/en/latest/topics/autothrottle.html)
+can help with crawling speed. As an option, it is possible to spread the load and make a
+[distributed crawl](https://docs.scrapy.org/en/latest/topics/practices.html#distributed-crawls).
