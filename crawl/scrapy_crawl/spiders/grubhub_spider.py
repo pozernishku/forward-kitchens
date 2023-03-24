@@ -16,8 +16,6 @@ DEVICE_ID = 1844483276
 SCOPE = "anonymous"
 VERSION = "4"
 
-print(VERSION)
-
 
 class GrubhubSpiderSpider(Spider):
     name = "grubhub_spider"
